@@ -26,7 +26,7 @@ foldTree f acc (Node left value right) =
     foldTree f (f value (foldTree f acc left)) right
 
 mapTree' :: (a -> b) -> BinaryTree a -> BinaryTree b
-mapTree' f tree = foldTree  (\a b -> Node b (f a) b) Leaf tree
+mapTree' f tree = foldTree  (\a b -> Node b (f a) Leaf) Leaf tree
 
 treeToList :: TreeOrder -> BinaryTree a -> [a]
 treeToList _ Leaf = []
