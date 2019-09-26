@@ -25,6 +25,9 @@ minWordLength = 5
 maxWordLength :: Int
 maxWordLength = 9
 
+maxIncorrectGuesses :: Int
+maxIncorrectGuesses = 5
+
 allWords :: IO WordList
 allWords = do
   dict <- readFile "data/dict.txt"
@@ -89,23 +92,30 @@ handleGuess puzzle guess = do
 
 gameOver :: Puzzle -> IO ()
 gameOver (Puzzle word _ guessed) =
-  if length guessed > maxWordLength then
-    do
-      putStrLn "You lose!"
-      putStrLn $ "The word was: " ++ word
-      exitSuccess
-  else return () 
+  if incorrectGuesses > maxIncorrectGuesses 
+    then
+      do
+        putStrLn "You lose!"
+        putStrLn $ "The word was: " ++ word
+        exitSuccess
+    else
+      return ()
+  where
+    incorrectGuesses = length $ filter notWordChar guessed
+    notWordChar ch = not $ elem ch word 
 
 gameWin :: Puzzle -> IO ()
 gameWin (Puzzle word filledInSoFar _) =
   if all isJust filledInSoFar then
     do
       putStrLn "You won"
+      putStr $ "The word was: " ++ word
       exitSuccess
   else return ()
 
 runGame :: Puzzle -> IO ()
 runGame puzzle = forever $ do
+  putStrLn "\n_______________\n"
   gameOver puzzle
   gameWin puzzle
   putStrLn $ "Current puzzle is: " ++ show puzzle
