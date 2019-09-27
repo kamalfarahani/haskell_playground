@@ -1,0 +1,70 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 6ab42d9205797692755b7c927802047938e226fa378739e913775101fbfe2155
+
+name:           morse
+version:        0.1.0.0
+description:    Morse code
+homepage:       https://github.com/githubuser/morse#readme
+bug-reports:    https://github.com/githubuser/morse/issues
+author:         Kamal
+maintainer:     example@example.com
+copyright:      2019 Kamal
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/morse
+
+library
+  exposed-modules:
+      Morse
+  other-modules:
+      Paths_morse
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5,
+      containers,
+      QuickCheck
+  ghc-options:
+      -Wall -fwarn-tabs
+  default-language: Haskell2010
+
+executable morse-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_morse
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -fwarn-tabs -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , morse
+    , containers
+    , QuickCheck
+  default-language: Haskell2010
+
+test-suite morse-test
+  type: exitcode-stdio-1.0
+  main-is: tests.hs
+  other-modules:
+      Paths_morse
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -fwarn-tabs -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , morse
+    , containers
+    , QuickCheck
+  default-language: Haskell2010
