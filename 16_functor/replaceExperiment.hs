@@ -34,3 +34,16 @@ thriceLifted = (fmap . fmap . fmap) replaceWithP
 
 thriceLifted' :: [Maybe [Char]] -> [Maybe [Char]]
 thriceLifted' = thriceLifted
+
+main :: IO ()
+main = do
+    print (replaceWithP' lms)
+    
+    print (liftedReplace lms)
+    print (liftedReplace' lms)
+
+    print (twiceLifted lms)
+    print (twiceLifted' lms)
+
+    print (thriceLifted lms)
+    print (thriceLifted' lms)
